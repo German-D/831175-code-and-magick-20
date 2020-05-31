@@ -5,7 +5,7 @@ window.GameConstants = {
     size: window.fireballSize || 24,
     speed: window.getFireballSpeed || function (movingLeft) {
       return movingLeft ? 2 : 5;
-    }
+    },
   },
   Wizard: {
     speed: window.wizardSpeed || 2,
@@ -18,8 +18,8 @@ window.GameConstants = {
     },
     getY: window.getWizardY || function (height) {
       return height - 100;
-    }
-  }
+    },
+  },
 };
 
 window.Game = (function () {
@@ -44,7 +44,7 @@ window.Game = (function () {
     MOVE_LEFT: 1,
     MOVE_RIGHT: 2,
     LEVITATE: 3,
-    HIT_THE_MARK: 4
+    HIT_THE_MARK: 4,
   };
 
   var NAMES = ['Кекс', 'Катя', 'Игорь'];
@@ -54,7 +54,7 @@ window.Game = (function () {
    * @type {Array.<Level>}
    */
   var LevelSequence = [
-    Level.INTRO
+    Level.INTRO,
   ];
 
   /**
@@ -69,7 +69,7 @@ window.Game = (function () {
    */
   var ObjectType = {
     ME: 0,
-    FIREBALL: 1
+    FIREBALL: 1,
   };
 
   /**
@@ -78,7 +78,7 @@ window.Game = (function () {
    */
   var ObjectState = {
     OK: 0,
-    DISPOSED: 1
+    DISPOSED: 1,
   };
 
   /**
@@ -90,7 +90,7 @@ window.Game = (function () {
     LEFT: 1,
     RIGHT: 2,
     UP: 4,
-    DOWN: 8
+    DOWN: 8,
   };
 
   /**
@@ -103,20 +103,20 @@ window.Game = (function () {
   SpriteMap[ObjectType.ME] = {
     width: 61,
     height: 84,
-    url: 'img/wizard.gif'
+    url: 'img/wizard.gif',
   };
 
   // TODO: Find a clever way
   SpriteMap[ObjectType.ME + REVERSED] = {
     width: 61,
     height: 84,
-    url: 'img/wizard-reversed.gif'
+    url: 'img/wizard-reversed.gif',
   };
 
   SpriteMap[ObjectType.FIREBALL] = {
     width: 24,
     height: 24,
-    url: 'img/fireball.gif'
+    url: 'img/fireball.gif',
   };
 
   /**
@@ -220,7 +220,7 @@ window.Game = (function () {
     WIN: 1,
     FAIL: 2,
     PAUSE: 3,
-    INTRO: 4
+    INTRO: 4,
   };
 
   /**
@@ -263,20 +263,20 @@ window.Game = (function () {
    */
   LevelsInitialize[Level.INTRO] = function (state) {
     state.objects.push(
-        // Установка персонажа в начальное положение. Он стоит в крайнем левом
-        // углу экрана, глядя вправо. Скорость перемещения персонажа на этом
-        // уровне равна 2px за кадр.
-        {
-          direction: Direction.RIGHT,
-          height: window.GameConstants.Wizard.getHeight(window.GameConstants.Wizard.width),
-          speed: window.GameConstants.Wizard.speed,
-          sprite: SpriteMap[ObjectType.ME],
-          state: ObjectState.OK,
-          type: ObjectType.ME,
-          width: window.GameConstants.Wizard.width,
-          x: window.GameConstants.Wizard.getX(WIDTH),
-          y: window.GameConstants.Wizard.getY(HEIGHT)
-        }
+      // Установка персонажа в начальное положение. Он стоит в крайнем левом
+      // углу экрана, глядя вправо. Скорость перемещения персонажа на этом
+      // уровне равна 2px за кадр.
+      {
+        direction: Direction.RIGHT,
+        height: window.GameConstants.Wizard.getHeight(window.GameConstants.Wizard.width),
+        speed: window.GameConstants.Wizard.speed,
+        sprite: SpriteMap[ObjectType.ME],
+        state: ObjectState.OK,
+        type: ObjectType.ME,
+        width: window.GameConstants.Wizard.width,
+        x: window.GameConstants.Wizard.getX(WIDTH),
+        y: window.GameConstants.Wizard.getY(HEIGHT),
+      },
     );
 
     return state;
@@ -348,7 +348,7 @@ window.Game = (function () {
           LEFT: false,
           RIGHT: false,
           SPACE: false,
-          UP: false
+          UP: false,
         },
 
         // Время начала прохождения уровня.
@@ -358,7 +358,7 @@ window.Game = (function () {
         objects: [],
 
         // Время начала прохождения игры.
-        startTime: null
+        startTime: null,
       };
     },
 
@@ -472,7 +472,7 @@ window.Game = (function () {
       var minTimeInSec = 1000;
 
       var statistic = {
-        'Вы': time
+        'Вы': time,
       };
 
       for (var i = 0; i < NAMES.length; i++) {
@@ -589,7 +589,7 @@ window.Game = (function () {
           type: ObjectType.FIREBALL,
           width: window.GameConstants.Fireball.size,
           x: me.direction & Direction.RIGHT ? me.x + me.width : me.x - window.GameConstants.Fireball.size,
-          y: me.y + me.height / 2
+          y: me.y + me.height / 2,
         });
 
         this.state.keysPressed.SHIFT = false;
@@ -659,7 +659,7 @@ window.Game = (function () {
             return Date.now() - state.startTime > 3 * 60 * 1000 ?
               Verdict.FAIL :
               Verdict.CONTINUE;
-          }
+          },
         ];
       }
 
@@ -804,7 +804,7 @@ window.Game = (function () {
     _removeGameListeners: function () {
       window.removeEventListener('keydown', this._onKeyDown);
       window.removeEventListener('keyup', this._onKeyUp);
-    }
+    },
   };
 
   Game.Verdict = Verdict;
