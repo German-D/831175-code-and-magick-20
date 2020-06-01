@@ -58,7 +58,7 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + GISTOGRAM_GAP + i * GISTOGRAM_GAP + i * BAR_WEIGHT, TEXT_Y);
     ctx.fillText(Math.round(times[i]), CLOUD_X + GISTOGRAM_GAP + i * GISTOGRAM_GAP + i * BAR_WEIGHT, RESULT_Y + barRemains);
-    ctx.fillStyle = (players[i] === 'Вы') ? '#F03' : 'hsl(228,' + barColor + ', 50%)';
+    ctx.fillStyle = (players[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'hsl(228,' + barColor + ', 50%)';
     ctx.fillRect(CLOUD_X + GISTOGRAM_GAP + i * GISTOGRAM_GAP + i * BAR_WEIGHT, BAR_Y + barRemains, BAR_WEIGHT, barHeight);
   }
 };
