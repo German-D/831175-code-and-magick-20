@@ -13,10 +13,9 @@ var RESULT_Y = 80;
 var TEXT_Y = 255;
 var BAR_Y = 100;
 
-
-var renderCloud = function (ctx, x, y, color) {
+var renderCloud = function (ctx, x, y, color, width, height) {
   ctx.fillStyle = color;
-  ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.fillRect(x, y, width, height);
 };
 
 var getRandomNumber = function (min, max) {
@@ -24,22 +23,10 @@ var getRandomNumber = function (min, max) {
   return Math.floor(rand);
 };
 
-var getMaxElement = function (arr) {
-  var maxElement = arr[0];
-
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i] > maxElement) {
-      maxElement = arr[i];
-    }
-  }
-
-  return maxElement;
-};
-
 window.renderStatistics = function (ctx, players, times) {
 
-  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
+  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)', CLOUD_WIDTH, CLOUD_HEIGHT);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff', CLOUD_WIDTH, CLOUD_HEIGHT);
 
   ctx.fillStyle = '#000';
 
@@ -50,15 +37,21 @@ window.renderStatistics = function (ctx, players, times) {
 
 
   for (var i = 0; i < players.length; i++) {
-    var maxTime = getMaxElement(times);
+    var maxTime = times.reduce(function (a, b) {
+      return Math.max(a, b);
+    });
     var barHeight = 150 * times[i] / maxTime;
     var barColor = getRandomNumber(1, 100) + '%';
     var barRemains = MAX_BAR_HEIGHT - barHeight;
+    var barX = CLOUD_X + GISTOGRAM_GAP;
+    var finalBarGap = GISTOGRAM_GAP + BAR_WEIGHT;
+    var finalResultY = RESULT_Y + barRemains;
+    var finalBarY = BAR_Y + barRemains;
 
     ctx.fillStyle = '#000';
-    ctx.fillText(players[i], CLOUD_X + GISTOGRAM_GAP + i * GISTOGRAM_GAP + i * BAR_WEIGHT, TEXT_Y);
-    ctx.fillText(Math.round(times[i]), CLOUD_X + GISTOGRAM_GAP + i * GISTOGRAM_GAP + i * BAR_WEIGHT, RESULT_Y + barRemains);
+    ctx.fillText(players[i], barX + i * finalBarGap, TEXT_Y);
+    ctx.fillText(Math.round(times[i]), barX + i * finalBarGap, finalResultY);
     ctx.fillStyle = (players[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'hsl(228,' + barColor + ', 50%)';
-    ctx.fillRect(CLOUD_X + GISTOGRAM_GAP + i * GISTOGRAM_GAP + i * BAR_WEIGHT, BAR_Y + barRemains, BAR_WEIGHT, barHeight);
+    ctx.fillRect(barX + i * finalBarGap, finalBarY, BAR_WEIGHT, barHeight);
   }
 };
