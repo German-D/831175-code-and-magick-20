@@ -25,6 +25,14 @@ var getRandomNumber = function (min, max) {
 
 window.renderStatistics = function (ctx, players, times) {
 
+  var maxTime = times.reduce(function (acc, cur) {
+    if (cur > acc) {
+      return cur;
+    } else {
+      return acc;
+    }
+  });
+
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)', CLOUD_WIDTH, CLOUD_HEIGHT);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff', CLOUD_WIDTH, CLOUD_HEIGHT);
 
@@ -37,13 +45,7 @@ window.renderStatistics = function (ctx, players, times) {
 
 
   for (var i = 0; i < players.length; i++) {
-    var maxTime = times.reduce(function (acc, cur) {
-      if (cur > acc) {
-        return cur;
-      } else {
-        return acc;
-      }
-    });
+
     var barHeight = 150 * times[i] / maxTime;
     var barColor = getRandomNumber(1, 100) + '%';
     var barRemains = MAX_BAR_HEIGHT - barHeight;
