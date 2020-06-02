@@ -37,8 +37,12 @@ window.renderStatistics = function (ctx, players, times) {
 
 
   for (var i = 0; i < players.length; i++) {
-    var maxTime = times.reduce(function (a, b) {
-      return Math.max(a, b);
+    var maxTime = times.reduce(function (acc, cur) {
+      if (cur > acc) {
+        return cur;
+      } else {
+        return acc;
+      }
     });
     var barHeight = 150 * times[i] / maxTime;
     var barColor = getRandomNumber(1, 100) + '%';
