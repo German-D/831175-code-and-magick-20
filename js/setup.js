@@ -15,7 +15,7 @@ var getRandomNumber = function (min, max) {
   return Math.floor(randomNumber);
 };
 
-var getPosition = function (aray) {
+var getRandomPosition = function (aray) {
   return getRandomNumber(0, aray.length - 1);
 };
 
@@ -61,10 +61,10 @@ var eyesColors = [
 var wizards = [];
 
 for (var i = 0; i < 4; i++) {
-  var nameIndex = getPosition(names);
-  var secondNameIndex = getPosition(secondNames);
-  var eyesColorsIndex = getPosition(eyesColors);
-  var coatColorsIndex = getPosition(coatColors);
+  var nameIndex = getRandomPosition(names);
+  var secondNameIndex = getRandomPosition(secondNames);
+  var eyesColorsIndex = getRandomPosition(eyesColors);
+  var coatColorsIndex = getRandomPosition(coatColors);
   wizards.push({
     name: names[nameIndex] + ' ' + secondNames[secondNameIndex],
     coatColor: coatColors[coatColorsIndex],
