@@ -109,17 +109,49 @@ var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var setupWizzard = document.querySelector('.setup-wizard');
 
+var popupOpen = function () {
+  setupOpen.removeEventListener('click', setupOpenClickHandler);
+  setupClose.addEventListener('click', setupCloseClickHandler);
+  document.addEventListener('keydown', documentKeyHandler);
+  wizardCoat.addEventListener('click', wizardCoatClickHandler);
+  wizardEyes.addEventListener('click', wizardEyesClickHandler);
+  setupFireballWrap.addEventListener('click', setupFireballWrapClickHandler);
+};
+
+var popupClose = function () {
+  setupOpen.addEventListener('click', setupOpenClickHandler);
+  setupClose.removeEventListener('click', setupCloseClickHandler);
+  document.removeEventListener('keydown', documentKeyHandler);
+  wizardCoat.removeEventListener('click', wizardCoatClickHandler);
+  wizardEyes.removeEventListener('click', wizardEyesClickHandler);
+  setupFireballWrap.removeEventListener('click', setupFireballWrapClickHandler);
+};
+
+
 var setupWizardForm = document.querySelector('.setup-wizard-form');
 
 // При клике по кнопке открывает окно настроек
 var setupOpenClickHandler = function () {
   setupWindow.classList.remove('hidden');
+  popupOpen();
 };
 setupOpen.addEventListener('click', setupOpenClickHandler);
+
+// Esc в любом месте закрывает окно настроек волшебника
+var documentKeyHandler = function (evt) {
+  if (evt.key === 'Escape' && evt.target !== setupUserName) {
+    setupWindow.classList.add('hidden');
+    popupClose();
+  }
+};
+var setupUserName = document.querySelector('.setup-user-name');
+
+document.addEventListener('keydown', documentKeyHandler);
 
 // При клике по крестику закрывает окно настроек
 var setupCloseClickHandler = function () {
   setupWindow.classList.add('hidden');
+  popupClose();
 };
 setupClose.addEventListener('click', setupCloseClickHandler);
 
@@ -135,15 +167,7 @@ setupClose.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     setupWindow.classList.add('hidden');
   }
-});
-
-// Esc в любом месте закрывает окно настроек волшебника
-var setupUserName = document.querySelector('.setup-user-name');
-
-document.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Escape' && evt.target !== setupUserName) {
-    setupWindow.classList.add('hidden');
-  }
+  popupClose();
 });
 
 // Меняю цвет и значение мантии
@@ -180,4 +204,3 @@ var setupFireballWrapClickHandler = function (evt) {
 };
 
 setupFireballWrap.addEventListener('click', setupFireballWrapClickHandler);
-
