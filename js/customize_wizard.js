@@ -45,7 +45,7 @@
   var setupClose = document.querySelector('.setup-close');
 
   var popupOpen = function () {
-    window.util.setupWindow.classList.remove('hidden');
+    window.renderWizards.userDialog.classList.remove('hidden');
     setupOpen.removeEventListener('click', setupOpenClickHandler);
     setupClose.addEventListener('click', setupCloseClickHandler);
     document.addEventListener('keydown', documentKeyHandler);
@@ -55,10 +55,10 @@
   };
 
   var popupClose = function () {
-    window.util.setupWindow.style.top = window.util.setupWindowTop;
-    window.util.setupWindow.style.left = window.util.setupWindowLeft;
+    window.renderWizards.userDialog.style.top = window.renderWizards.userDialogTop;
+    window.renderWizards.userDialog.style.left = window.renderWizards.userDialogLeft;
 
-    window.util.setupWindow.classList.add('hidden');
+    window.renderWizards.userDialog.classList.add('hidden');
     setupOpen.addEventListener('click', setupOpenClickHandler);
     setupClose.removeEventListener('click', setupCloseClickHandler);
     document.removeEventListener('keydown', documentKeyHandler);

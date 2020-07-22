@@ -1,8 +1,12 @@
 'use strict';
 
 (function () {
+  var userDialog = document.querySelector('.setup');
+  var userDialogTop = userDialog.style.top;
+  var userDialogLeft = userDialog.style.left;
 
-  var similarListElement = window.util.userDialog.querySelector('.setup-similar-list');
+  userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  var similarListElement = userDialog.querySelector('.setup-similar-list');
 
   var names = [
     'Иван',
@@ -94,6 +98,9 @@
     coatColors: coatColors,
     eyesColors: eyesColors,
     fireballColors: fireballColors,
+    userDialog: userDialog,
+    userDialogTop: userDialogTop,
+    userDialogLeft: userDialogLeft,
   };
 
 })();

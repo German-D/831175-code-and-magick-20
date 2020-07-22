@@ -2,9 +2,9 @@
 
 (function () {
 
-  var dialogHandle = window.util.setupWindow.querySelector('.upload');
+  var uploadHandle = window.renderWizards.userDialog.querySelector('.upload');
 
-  dialogHandle.addEventListener('mousedown', function (evt) {
+  uploadHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -29,9 +29,8 @@
         y: moveEvt.clientY
       };
 
-      window.util.setupWindow.style.top = (window.util.setupWindow.offsetTop - shift.y) + 'px';
-      window.util.setupWindow.style.left = (window.util.setupWindow.offsetLeft - shift.x) + 'px';
-
+      window.renderWizards.userDialog.style.top = (window.renderWizards.userDialog.offsetTop - shift.y) + 'px';
+      window.renderWizards.userDialog.style.left = (window.renderWizards.userDialog.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
@@ -43,9 +42,9 @@
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
-          dialogHandle.removeEventListener('click', onClickPreventDefault);
+          uploadHandle.removeEventListener('click', onClickPreventDefault);
         };
-        dialogHandle.addEventListener('click', onClickPreventDefault);
+        uploadHandle.addEventListener('click', onClickPreventDefault);
       }
     };
 
